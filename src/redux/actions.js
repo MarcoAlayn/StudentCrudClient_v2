@@ -12,7 +12,8 @@ export const CREATE_STUDENT = "CREATE_STUDENT";
 export const DELETE_STUDENT = "DELETE_STUDENT";
 export const RESET_STUDENT_INFO = "RESET_STUDENT_INFO";
 
-const apiURL = "https://dotnetapistudents.azurewebsites.net"
+// const apiURL = "https://dotnetapistudents.azurewebsites.net"
+const apiURL = "https://localhost:7191"
 
 export const getAllStudents = () => {
   return async (dispatch) => {

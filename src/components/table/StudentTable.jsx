@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Options from "../button/Options";
+import OptionsButton from "../button/OptionsButton";
 import Text from "../text/Text";
 import { txtStyles } from "../text/TextStyles";
 import { Box, styled } from "@mui/material";
@@ -101,7 +101,7 @@ const StudentTable = ({ studentList }) => {
                 {row?.studentCreatedOn.slice(0, 10)}
               </CustomTableCell>
               <CustomTableCell sx={{ borderRadius: "0 15px 15px 0" }}>
-                <Options id={row?.studentId} />
+                <OptionsButton id={row?.studentId} />
               </CustomTableCell>
             </CustomTableRow>
           ))}

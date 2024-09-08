@@ -43,7 +43,7 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
   },
 }));
 
-export default function Options({ id }) {
+export default function OptionsButton({ id }) {
   const { isFetchSuccess } = useSelector((state) => state);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const dispatch = useDispatch();

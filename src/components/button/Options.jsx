@@ -20,6 +20,7 @@ import {
   deleteStudent,
   getAllStudents,
 } from "../../redux/actions";
+import colors from "../../utils/colors";
 
 const StyledMenu = styled(Menu)(({ theme }) => ({
   "& .MuiPaper-root": {
@@ -93,11 +94,10 @@ export default function Options({ id }) {
     }
     setShowConfirmationModal(false);
   };
-  
 
   return (
     <div>
-      <IconButton onClick={handleClick}>
+      <IconButton sx={{ color: colors.darkPurple }} onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
       <StyledMenu

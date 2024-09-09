@@ -6,8 +6,8 @@ import Loader from "../components/Loader/Loader";
 import AlertFeedback from "../components/alertFeedback/AlertFeedback";
 import Text from "../components/text/Text";
 import { Box } from "@mui/material";
-import ModalForm from "../components/modalForm/ModalForm";
 import StudentTable from "../components/table/StudentTable";
+import StudentsForm from "../components/forms/studentsForm/StudentsForm";
 
 const Students = () => {
   const dispatch = useDispatch();
@@ -170,7 +170,7 @@ const Students = () => {
       {/* alert */}
       {!fetchInProcess && <AlertFeedback />}
       {/* modalForm */}
-      {!fetchInProcess && showModalDetail && <ModalForm />}
+      {!fetchInProcess && showModalDetail && <StudentsForm/>}
       {/* Tabla */}
       {!fetchInProcess && studentList?.length > 0 ? (
         <StudentTable studentList={studentList} />

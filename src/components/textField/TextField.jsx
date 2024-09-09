@@ -1,37 +1,80 @@
 import React from "react";
-import {
-  FormControl,
-  Input,
-  InputLabel,
-  InputAdornment,
-  IconButton,
-  styled,
-} from "@mui/material";
+import { InputAdornment, IconButton } from "@mui/material";
 import colors from "../../utils/colors";
+import {
+  IntputSearch,
+  ReadLabel,
+  EditLabel,
+  EditInput,
+  CreateLabel,
+  CreateInput,
+} from "./TextFieldStyles";
 
-const MyInput = styled(Input)(({ theme }) => ({
-  backgroundColor: "white",
-  borderRadius: "15px",
-  border: "none",
-  color: colors.darkPurple,
-  paddingLeft: "10px",
-  width: "400px",
-  height: "40px",
-}));
-
-const TextField = ({ Icon }) => {
+const TextField = ({
+  Icon,
+  type,
+  name,
+  label,
+  value,
+  handleChange,
+  errors,
+}) => {
   return (
-    <MyInput
-      id='standard-adornment-password'
-      placeholder='Buscar'
-      type='search'
-      disableUnderline={true}
-      endAdornment={
-        <InputAdornment position='start'>
-          <IconButton sx={{ color: colors.gray2 }}>{<Icon />}</IconButton>
-        </InputAdornment>
-      }
-    />
+    <>
+      {type === "search" && (
+        <IntputSearch
+          placeholder='Buscar'
+          type='search'
+          disableUnderline
+          endAdornment={
+            <InputAdornment position='start'>
+              <IconButton sx={{ color: colors.gray2 }}>{<Icon />}</IconButton>
+            </InputAdornment>
+          }
+        />
+      )}
+      {type === "read" && (
+        <>
+          <ReadLabel htmlFor={name}>{label}</ReadLabel>
+          <span
+            style={{
+              backgroundColor: "transparent",
+              fontWeight: "bold",
+              pointerEvents: "none",
+              marginBottom:"20px"
+            }}
+          >
+            {value}
+          </span>
+        </>
+      )}
+      {type === "edit" && (
+        <>
+          <EditLabel htmlFor={name}>{label}</EditLabel>
+          <EditInput
+            id={name}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            disableUnderline
+          />
+          {errors && <span style={{ color: "red" }}>{errors}</span>}
+        </>
+      )}
+      {type === "create" && (
+        <>
+          <CreateLabel htmlFor={name}>{label}</CreateLabel>
+          <CreateInput
+            id={name}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            disableUnderline
+          />
+          {errors && <span style={{ color: "red" }}>{errors}</span>}
+        </>
+      )}
+    </>
   );
 };
 

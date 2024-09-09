@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import OptionsButton from "../button/OptionsButton";
+import OptionsButton from "../optionsButton/OptionsButton";
 import Text from "../text/Text";
 import { txtStyles } from "../text/TextStyles";
 import { Box, styled } from "@mui/material";
@@ -14,7 +14,6 @@ import colors from "../../utils/colors";
 import TextField from "../textField/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "../button/Button";
-import { btnStyles } from "../button/ButtonStyles";
 
 const CustomTableRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: "white",
@@ -52,8 +51,8 @@ const StudentTable = ({ studentList }) => {
       >
         <Text style={txtStyles.titleList} text={"Estudiantes"} />
         <Box sx={{ display: "flex", columnGap: "1rem" }}>
-          <TextField Icon={SearchIcon} />
-          <Button style={btnStyles.primary}>Añadir Estudiante</Button>
+          <TextField Icon={SearchIcon} type={"search"} />
+          <Button style={"primary"}>Añadir Estudiante</Button>
         </Box>
       </Box>
       <Table
@@ -86,7 +85,7 @@ const StudentTable = ({ studentList }) => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody >
+        <TableBody>
           {studentList?.map((row) => (
             <CustomTableRow key={row?.studentId}>
               <CustomTableCell sx={{ borderRadius: "15px 0 0 15px" }}>

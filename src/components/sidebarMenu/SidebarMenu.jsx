@@ -138,7 +138,7 @@ export default function SidebarMenu({ children }) {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton sx>
+            <ListItemButton>
               <Link
                 style={{
                   textDecoration: "none",

@@ -1,9 +1,15 @@
-import { Button as MUIButton } from "@mui/material";
 import React from "react";
-import { btnStyles } from "./ButtonStyles";
+import { Primary, Secondary } from "./ButtonStyles";
 
-const Button = ({ style, children }) => {
-  return <MUIButton sx={style}>{children}</MUIButton>;
+const Button = ({ style, children, onClick }) => {
+  return (
+    <>
+      {style === "primary" && <Primary onClick={onClick}>{children}</Primary>}
+      {style === "secondary" && (
+        <Secondary onClick={onClick}>{children}</Secondary>
+      )}
+    </>
+  );
 };
 
 export default Button;

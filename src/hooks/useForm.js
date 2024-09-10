@@ -8,8 +8,8 @@ const useForm = (initialValues, validate) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
 
-    const newErrors = validate({ ...values, [name]: value }); //para validar en tiempo real
-    setErrors(newErrors);
+    const fieldErrors = validate({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: fieldErrors[name] });
   };
 
   const handleSubmit = (callback) => (event) => {

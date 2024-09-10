@@ -1,13 +1,12 @@
 import React from "react";
-import { InputAdornment, IconButton } from "@mui/material";
+import { InputAdornment, IconButton, MenuItem } from "@mui/material";
 import colors from "../../utils/colors";
 import {
   IntputSearch,
   ReadLabel,
   EditLabel,
   EditInput,
-  CreateLabel,
-  CreateInput,
+  EditSelect
 } from "./TextFieldStyles";
 
 const TextField = ({
@@ -18,6 +17,7 @@ const TextField = ({
   value,
   handleChange,
   errors,
+  options,
 }) => {
   return (
     <>
@@ -41,37 +41,52 @@ const TextField = ({
               backgroundColor: "transparent",
               fontWeight: "bold",
               pointerEvents: "none",
-              marginBottom:"20px"
+              marginBottom: "20px",
             }}
           >
             {value}
           </span>
         </>
       )}
-      {type === "edit" && (
+      {(type === "edit" || type === "create") && (
         <>
           <EditLabel htmlFor={name}>{label}</EditLabel>
-          <EditInput
-            id={name}
-            name={name}
-            value={value}
-            onChange={handleChange}
-            disableUnderline
-          />
-          {errors && <span style={{ color: "red" }}>{errors}</span>}
-        </>
-      )}
-      {type === "create" && (
-        <>
-          <CreateLabel htmlFor={name}>{label}</CreateLabel>
-          <CreateInput
-            id={name}
-            name={name}
-            value={value}
-            onChange={handleChange}
-            disableUnderline
-          />
-          {errors && <span style={{ color: "red" }}>{errors}</span>}
+          {!options ? (
+            <EditInput
+              id={name}
+              name={name}
+              value={value}
+              onChange={handleChange}
+              disableUnderline
+              size='small'
+            />
+          ) : (
+            <EditSelect
+              // labelId={name}
+              // label={label}
+              id={name}
+              name={name}
+              value={value}
+              onChange={handleChange}
+              disableUnderline
+              size='small'
+              variant='standard'
+            >
+              {options.map(({ option, optionValue }) => (
+                <MenuItem key={optionValue} value={optionValue}>
+                  {option}
+                </MenuItem>
+              ))}
+            </EditSelect>
+          )}
+
+          {errors?.[name] && (
+            <span
+              style={{ color: "red", marginTop: "-24px", textAlign: "center" }}
+            >
+              {errors?.[name]}
+            </span>
+          )}
         </>
       )}
     </>

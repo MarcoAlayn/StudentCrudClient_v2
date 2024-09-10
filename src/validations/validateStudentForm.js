@@ -123,6 +123,8 @@ const validateStudentForm = (values) => {
   } else if (!onlyNumbers.test(values.areaCode)) {
     errors.areaCode = "Solo números";
   }
+
+  return errors;
 };
 
 export default validateStudentForm;

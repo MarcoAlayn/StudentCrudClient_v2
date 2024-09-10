@@ -14,8 +14,29 @@ const StudentsForm = () => {
     (state) => state
   );
 
+  // Verificar si estamos en modo "create" y establecer valores vacíos
+  const initialFormValues =
+    modalMode === "create"
+      ? {
+          firstName: "",
+          middleName: "",
+          lastName: "",
+          gender: "",
+          email: "",
+          emailType: "",
+          phone: "",
+          phoneType: "",
+          addressLine: "",
+          state: "",
+          city: "",
+          zipPostcode: "",
+          countryCode: "",
+          areaCode: "",
+        }
+      : studentSelected; // usar el estudiante seleccionado en los otros modos
+
   const { values, handleChange, handleSubmit, errors } = useForm(
-    studentSelected,
+    initialFormValues,
     validateStudentForm
   );
 
@@ -24,149 +45,202 @@ const StudentsForm = () => {
     flexDirection: "column",
   };
 
+  const titleModal =
+    modalMode === "read"
+      ? `Información de estudiante con ID ${values?.studentId}`
+      : modalMode === "edit"
+      ? `Actualización de estudiante con ID ${values?.studentId}`
+      : "Nuevo estudiante";
+
   const onClose = () => {
     dispatch(closeModal(false));
   };
 
+  // const submitByMode =
+  //   modalMode === "edit"
+  //     ? submit(dispatch())
+  //     : modalMode === "create"
+  //     ? submit(dispatch())
+  //     : () => {};
+
   return (
     <ModalForm
-      title={`Detalle de estudiante con ID ${studentSelected.studentId}`}
+      title={titleModal}
       open={showModalDetail}
       onClose={onClose}
+      onSubmit={handleSubmit}
     >
-      <form onSubmit={handleSubmit}>
-        {modalMode === "read" && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              columnGap: "2rem",
-            }}
-          >
-            {/* column 1 */}
-            <Box sx={{ ...columnStyle }}>
-              <TextField
-                type={"read"}
-                name={"firstName"}
-                label={"Nombre"}
-                value={studentSelected.firstName}
-              />
-              <TextField
-                type={"read"}
-                name={"middleName"}
-                label={"Segundo Nombre"}
-                value={studentSelected.middleName}
-              />
-              <TextField
-                type={"read"}
-                name={"lastName"}
-                label={"Apellido"}
-                value={studentSelected.lastName}
-              />
-              <TextField
-                type={"read"}
-                name={"gender"}
-                label={"Genero"}
-                value={studentSelected.gender}
-              />
-            </Box>
-            {/* column 2 */}
-            <Box sx={{ ...columnStyle }}>
-              <TextField
-                type={"read"}
-                name={"email"}
-                label={"Correo Electrónico"}
-                value={studentSelected.email}
-              />
-              <TextField
-                type={"read"}
-                name={"emailType"}
-                label={"Tipo de Correo Electrónico"}
-                value={studentSelected.emailType}
-              />
-              <TextField
-                type={"read"}
-                name={"phone"}
-                label={"Teléfono"}
-                value={studentSelected.phone}
-              />
-              <TextField
-                type={"read"}
-                name={"phoneType"}
-                label={"Tipo de Teléfono"}
-                value={studentSelected.phoneType}
-              />
-            </Box>
-            {/* column 3 */}
-            <Box sx={{ ...columnStyle }}>
-              <TextField
-                type={"read"}
-                name={"addressLine"}
-                label={"Dirección"}
-                value={studentSelected.addressLine}
-              />
-              <TextField
-                type={"read"}
-                name={"state"}
-                label={"Estado"}
-                value={studentSelected.state}
-              />
-              <TextField
-                type={"read"}
-                name={"city"}
-                label={"Ciudad"}
-                value={studentSelected.city}
-              />
-              <TextField
-                type={"read"}
-                name={"zipPostcode"}
-                label={"Código Postal"}
-                value={studentSelected.zipPostcode}
-              />
-            </Box>
-            {/* column 4 */}
-            <Box sx={{ ...columnStyle }}>
-              <TextField
-                type={"read"}
-                name={"countryCode"}
-                label={"Código de país"}
-                value={studentSelected.countryCode}
-              />
-              <TextField
-                type={"read"}
-                name={"areaCode"}
-                label={"Código de área"}
-                value={studentSelected.areaCode}
-              />
-            </Box>
+      <form>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            columnGap: "2rem",
+          }}
+        >
+          {/* column 1 */}
+          <Box sx={{ ...columnStyle }}>
+            <TextField
+              type={modalMode}
+              name={"firstName"}
+              label={"Nombre"}
+              value={values?.firstName}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"middleName"}
+              label={"Segundo Nombre"}
+              value={values?.middleName}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"lastName"}
+              label={"Apellido"}
+              value={values?.lastName}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"gender"}
+              label={"Genero"}
+              value={values?.gender}
+              options={[
+                {
+                  option: "Masculino",
+                  optionValue: "M",
+                },
+                {
+                  option: "Femenino",
+                  optionValue: "F",
+                },
+              ]}
+              handleChange={handleChange}
+              errors={errors}
+            />
           </Box>
-        )}
-        {modalMode === "edit" && (
-          <>
+          {/* column 2 */}
+          <Box sx={{ ...columnStyle }}>
             <TextField
-              type={"edit"}
-              name={"firstName"}
-              label={"Nombre"}
-              value={values.firstName}
+              type={modalMode}
+              name={"email"}
+              label={"Correo Electrónico"}
+              value={values?.email}
               handleChange={handleChange}
-              errors={errors.firstName}
+              errors={errors}
             />
-          </>
-        )}
-        {modalMode === "create" && (
-          <>
             <TextField
-              type={"create"}
-              name={"firstName"}
-              label={"Nombre"}
-              value={""}
+              type={modalMode}
+              name={"emailType"}
+              label={"Tipo de Correo Electrónico"}
+              value={values?.emailType}
               handleChange={handleChange}
-              errors={errors.firstName}
-              autoFocus
-              required
+              options={[
+                {
+                  option: "Personal",
+                  optionValue: "Personal",
+                },
+                {
+                  option: "Escolar",
+                  optionValue: "Escolar",
+                },
+                {
+                  option: "Trabajo",
+                  optionValue: "Trabajo",
+                },
+              ]}
+              errors={errors}
             />
-          </>
-        )}
+            <TextField
+              type={modalMode}
+              name={"phone"}
+              label={"Teléfono"}
+              value={values?.phone}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"phoneType"}
+              label={"Tipo de Teléfono"}
+              value={values?.phoneType}
+              handleChange={handleChange}
+              options={[
+                {
+                  option: "Personal",
+                  optionValue: "Personal",
+                },
+                {
+                  option: "Trabajo",
+                  optionValue: "Trabajo",
+                },
+                {
+                  option: "Casa",
+                  optionValue: "Casa",
+                },
+              ]}
+              errors={errors}
+            />
+          </Box>
+          {/* column 3 */}
+          <Box sx={{ ...columnStyle }}>
+            <TextField
+              type={modalMode}
+              name={"addressLine"}
+              label={"Dirección"}
+              value={values?.addressLine}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"state"}
+              label={"Estado"}
+              value={values?.state}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"city"}
+              label={"Ciudad"}
+              value={values?.city}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"zipPostcode"}
+              label={"Código Postal"}
+              value={values?.zipPostcode}
+              handleChange={handleChange}
+              errors={errors}
+            />
+          </Box>
+          {/* column 4 */}
+          <Box sx={{ ...columnStyle }}>
+            <TextField
+              type={modalMode}
+              name={"countryCode"}
+              label={"Código de país"}
+              value={values?.countryCode}
+              handleChange={handleChange}
+              errors={errors}
+            />
+            <TextField
+              type={modalMode}
+              name={"areaCode"}
+              label={"Código de área"}
+              value={values?.areaCode}
+              handleChange={handleChange}
+              errors={errors}
+            />
+          </Box>
+        </Box>
       </form>
     </ModalForm>
   );

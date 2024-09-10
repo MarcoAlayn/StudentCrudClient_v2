@@ -14,6 +14,8 @@ import colors from "../../utils/colors";
 import TextField from "../textField/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "../button/Button";
+import { useDispatch } from "react-redux";
+import { setModalMode, showModalDetail } from "../../redux/actions";
 
 const CustomTableRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: "white",
@@ -35,6 +37,13 @@ const CustomTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StudentTable = ({ studentList }) => {
+  const dispatch = useDispatch();
+
+  const openCreateModal = () => {
+    dispatch(showModalDetail(true));
+    dispatch(setModalMode("create"));
+  };
+
   return (
     <TableContainer
       component={Paper}
@@ -52,7 +61,9 @@ const StudentTable = ({ studentList }) => {
         <Text style={txtStyles.titleList} text={"Estudiantes"} />
         <Box sx={{ display: "flex", columnGap: "1rem" }}>
           <TextField Icon={SearchIcon} type={"search"} />
-          <Button style={"primary"}>Añadir Estudiante</Button>
+          <Button onClick={openCreateModal} style={"primary"}>
+            Añadir Estudiante
+          </Button>
         </Box>
       </Box>
       <Table

@@ -1,4 +1,4 @@
-import { styled, Input, InputLabel } from "@mui/material";
+import { styled, Input, InputLabel, Select } from "@mui/material";
 import colors from "../../utils/colors";
 
 export const IntputSearch = styled(Input)(({}) => ({
@@ -24,16 +24,20 @@ export const EditLabel = styled(InputLabel)(({}) => ({
 export const EditInput = styled(Input)(({}) => ({
   backgroundColor: "white",
   borderRadius: "15px",
-  padding: "10px",
+  marginBottom: "20px",
+  padding: "3px 12px",
+  border: `1px solid ${colors.darkPurple}`,
+  borderRadius: "7px",
 }));
 
-export const CreateLabel = styled(InputLabel)(({}) => ({
-  color: colors.darkPurple,
-  fontWeight: "bold",
-}));
-
-export const CreateInput = styled(Input)(({}) => ({
+export const EditSelect = styled(Select)(({})=>({
   backgroundColor: "white",
   borderRadius: "15px",
-  padding: "10px",
-}));
+  marginBottom: "20px",
+  padding: "3px 12px",
+  border: `1px solid ${colors.darkPurple}`,
+  borderRadius: "7px",
+}))
+
+
+

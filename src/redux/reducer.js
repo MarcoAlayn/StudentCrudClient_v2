@@ -49,6 +49,7 @@ export function rootReducer(state = initialState, action) {
       return {
         ...state,
         studentList: action.payload,
+        fetchInProcess: false,
       };
     case GET_STUDENT_BY_ID:
       return {

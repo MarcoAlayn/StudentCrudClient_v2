@@ -22,10 +22,10 @@ export const getAllStudents = () => {
       const response = await axios.get(`${apiURL}/api/Student`);
 
       if (response?.status >= 200 && response?.status < 300) {
-        dispatch({
-          type: FETCH_SUCCESS,
-          payload: response?.data?.message,
-        });
+        // dispatch({
+        //   type: FETCH_SUCCESS,
+        //   payload: response?.data?.message,
+        // });
         return dispatch({
           type: GET_ALL_STUDENTS,
           payload: response?.data?.data,

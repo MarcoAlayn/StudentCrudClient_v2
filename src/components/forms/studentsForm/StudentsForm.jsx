@@ -5,7 +5,13 @@ import validateStudentForm from "../../../validations/validateStudentForm";
 import { useDispatch, useSelector } from "react-redux";
 import TextField from "../../textField/TextField";
 import { Box } from "@mui/material";
-import { showModalDetail as closeModal } from "../../../redux/actions";
+import {
+  showModalDetail as closeModal,
+  createStudent,
+  getAllStudents,
+  resetStudentInfo,
+  updateStudent,
+} from "../../../redux/actions";
 
 const StudentsForm = () => {
   const dispatch = useDispatch();
@@ -14,7 +20,6 @@ const StudentsForm = () => {
     (state) => state
   );
 
-  // Verificar si estamos en modo "create" y establecer valores vacíos
   const initialFormValues =
     modalMode === "create"
       ? {
@@ -33,9 +38,9 @@ const StudentsForm = () => {
           countryCode: "",
           areaCode: "",
         }
-      : studentSelected; // usar el estudiante seleccionado en los otros modos
+      : studentSelected;
 
-  const { values, handleChange, handleSubmit, errors } = useForm(
+  const { values, handleChange, handleSubmit, errors, isDisable } = useForm(
     initialFormValues,
     validateStudentForm
   );
@@ -56,19 +61,25 @@ const StudentsForm = () => {
     dispatch(closeModal(false));
   };
 
-  // const submitByMode =
-  //   modalMode === "edit"
-  //     ? submit(dispatch())
-  //     : modalMode === "create"
-  //     ? submit(dispatch())
-  //     : () => {};
+  const submitByMode = async () => {
+    if (modalMode === "create") {
+      await handleSubmit(dispatch(createStudent(values)));
+    } else if (modalMode === "edit") {
+      await handleSubmit(
+        dispatch(updateStudent(studentSelected?.studentId, values))
+      );
+    }
+    onClose();
+    await dispatch(getAllStudents());
+  };
 
   return (
     <ModalForm
       title={titleModal}
       open={showModalDetail}
       onClose={onClose}
-      onSubmit={handleSubmit}
+      onSubmit={submitByMode}
+      isDisable={isDisable}
     >
       <form>
         <Box
@@ -86,6 +97,7 @@ const StudentsForm = () => {
               label={"Nombre"}
               value={values?.firstName}
               handleChange={handleChange}
+              inputType={"text"}
               errors={errors}
             />
             <TextField
@@ -94,6 +106,7 @@ const StudentsForm = () => {
               label={"Segundo Nombre"}
               value={values?.middleName}
               handleChange={handleChange}
+              inputType={"text"}
               errors={errors}
             />
             <TextField
@@ -102,6 +115,7 @@ const StudentsForm = () => {
               label={"Apellido"}
               value={values?.lastName}
               handleChange={handleChange}
+              inputType={"text"}
               errors={errors}
             />
             <TextField
@@ -132,6 +146,7 @@ const StudentsForm = () => {
               value={values?.email}
               handleChange={handleChange}
               errors={errors}
+              inputType={"email"}
             />
             <TextField
               type={modalMode}
@@ -161,6 +176,7 @@ const StudentsForm = () => {
               label={"Teléfono"}
               value={values?.phone}
               handleChange={handleChange}
+              inputType={"tel"}
               errors={errors}
             />
             <TextField
@@ -194,6 +210,7 @@ const StudentsForm = () => {
               label={"Dirección"}
               value={values?.addressLine}
               handleChange={handleChange}
+              inputType={"text"}
               errors={errors}
             />
             <TextField
@@ -202,6 +219,7 @@ const StudentsForm = () => {
               label={"Estado"}
               value={values?.state}
               handleChange={handleChange}
+              inputType={"text"}
               errors={errors}
             />
             <TextField
@@ -210,6 +228,7 @@ const StudentsForm = () => {
               label={"Ciudad"}
               value={values?.city}
               handleChange={handleChange}
+              inputType={"text"}
               errors={errors}
             />
             <TextField
@@ -218,6 +237,7 @@ const StudentsForm = () => {
               label={"Código Postal"}
               value={values?.zipPostcode}
               handleChange={handleChange}
+              inputType={"number"}
               errors={errors}
             />
           </Box>
@@ -229,6 +249,7 @@ const StudentsForm = () => {
               label={"Código de país"}
               value={values?.countryCode}
               handleChange={handleChange}
+              inputType={"number"}
               errors={errors}
             />
             <TextField
@@ -237,6 +258,7 @@ const StudentsForm = () => {
               label={"Código de área"}
               value={values?.areaCode}
               handleChange={handleChange}
+              inputType={"number"}
               errors={errors}
             />
           </Box>

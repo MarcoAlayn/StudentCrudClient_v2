@@ -11,7 +11,7 @@ import StudentsForm from "../components/forms/studentsForm/StudentsForm";
 
 const Students = () => {
   const dispatch = useDispatch();
-  const { fetchInProcess, studentList, showModalDetail, isFetchSuccess } = useSelector(
+  const { fetchInProcess, studentList, showModalDetail } = useSelector(
     (state) => state
   );
 

@@ -1,9 +1,19 @@
-import React from 'react'
+import styled from "@emotion/styled";
+import { ReactComponent as NotFoundImage } from "../assets/NotFoundText.svg";
+import Layout from "../components/layout/Layout";
 
-const NotFound = () => {
+const ImageContainer = styled("div")(({}) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}));
+
+export default function NotFound() {
   return (
-    <div>NotFound</div>
-  )
+    <Layout>
+      <ImageContainer>
+        <NotFoundImage />
+      </ImageContainer>
+    </Layout>
+  );
 }
-
-export default NotFound

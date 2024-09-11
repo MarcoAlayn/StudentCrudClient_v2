@@ -33,7 +33,7 @@ src/
 │   ├── alertFeedback/
 │   │   └── AlertFeedback.jsx
 │   ├── button/
-│   │   └── Options.jsx
+│   │   └── OptionsButton.jsx
 │   ├── layout/
 │   │   └── Layout.jsx
 │   ├── loader/
@@ -68,7 +68,7 @@ src/
 - **components/**: Contiene componentes reutilizables de la interfaz de usuario (UI). Cada subcarpeta aquí representa un componente específico con su archivo JSX correspondiente.
 
   - **alertFeedback/**: Contiene `AlertFeedback.jsx`, un componente para mostrar notificaciones tipo "Snackbar".
-  - **button/**: Contiene `Options.jsx`, un componente de botón que despliega un menú con opciones.
+  - **button/**: Contiene `OptionsButton.jsx`, un componente de botón que despliega un menú con opciones.
   - **layout/**: Contiene `Layout.jsx`, un componente para definir la estructura general de la página con un contenedor y un menú lateral.
   - **loader/**: Contiene `Loader.jsx`, un componente que muestra un indicador de carga.
   - **modalForm/**: Contiene `ModalForm.jsx`, un formulario modal para crear o editar datos de estudiantes.
@@ -109,7 +109,7 @@ Este componente se utiliza para mostrar notificaciones tipo "Snackbar" en respue
   - Se abre el Snackbar cuando `fetchMessage` no es `null`.
   - El `severity` (nivel de severidad) se establece en función de `isFetchSuccess`.
 
-#### **Options.jsx**
+#### **OptionsButton.jsx**
 
 Este componente es un botón que despliega un menú con opciones como ver, editar y eliminar un estudiante.
 
@@ -177,7 +177,7 @@ Este componente muestra una tabla de estudiantes con opciones para ver, editar y
   - `students`: Array de objetos que representa la lista de estudiantes a mostrar en la tabla.
 - **Funcionamiento**:
   - Mapea a través del array `students` para generar filas en la tabla.
-  - Cada fila tiene botones de acción (ver, editar, eliminar) que interactúan con el componente `Options`.
+  - Cada fila tiene botones de acción (ver, editar, eliminar) que interactúan con el componente `OptionsButton`.
 
 ### **Text.jsx**
 

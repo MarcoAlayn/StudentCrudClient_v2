@@ -18,6 +18,8 @@ const TextField = ({
   handleChange,
   errors,
   options,
+  inputType,
+  required
 }) => {
   return (
     <>
@@ -57,6 +59,8 @@ const TextField = ({
               name={name}
               value={value}
               onChange={handleChange}
+              type={inputType}
+              required
               disableUnderline
               size='small'
             />

@@ -16,11 +16,11 @@ export const Primary = styled(Button)(({}) => ({
   color: "#FFF",
   "&:hover": {
     backgroundColor: colors.softPurple,
-    color: "#FFF",
+    color: colors.gray,
   },
   ":disabled": {
-    backgroundColor: colors.gray,
-    color: colors.darkPurple,
+    backgroundColor: colors.softPurple2,
+    color: "#FFF",
   },
 }));
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,32 +9,14 @@ import Paper from "@mui/material/Paper";
 import OptionsButton from "../optionsButton/OptionsButton";
 import Text from "../text/Text";
 import { txtStyles } from "../text/TextStyles";
-import { Box, styled } from "@mui/material";
+import { Box } from "@mui/material";
 import colors from "../../utils/colors";
 import TextField from "../textField/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "../button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModalMode, showModalDetail } from "../../redux/actions";
-
-const CustomTableRow = styled(TableRow)(({ theme }) => ({
-  backgroundColor: "white",
-
-  // "&:nth-of-type(odd)": {
-  //   backgroundColor: theme.palette.action.hover,
-  // },
-  // "&:hover": {
-  //   backgroundColor: theme.palette.primary.light,
-  // },
-}));
-
-const CustomTableCell = styled(TableCell)(({ theme }) => ({
-  fontWeight: "bold",
-  color: colors.darkPurple,
-  padding: "0px 16px",
-  borderBottom: `5px solid ${colors.gray}`,
-  overflow: "hidden",
-}));
+import { CustomTableCell, CustomTableRow } from "./StudentTableStyles";
 
 const StudentTable = ({ studentList }) => {
   const dispatch = useDispatch();
@@ -43,6 +25,8 @@ const StudentTable = ({ studentList }) => {
     dispatch(showModalDetail(true));
     dispatch(setModalMode("create"));
   };
+
+  useEffect(() => {}, [studentList]);
 
   return (
     <TableContainer

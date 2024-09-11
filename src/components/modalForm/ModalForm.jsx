@@ -10,7 +10,7 @@ import Button from "../button/Button";
 import { useSelector } from "react-redux";
 import ConfirmationModal from "../confirmationModal/ConfirmationModal";
 
-const ModalForm = ({ open, onClose, title, children, onSubmit }) => {
+const ModalForm = ({ open, onClose, title, children, onSubmit, isDisable }) => {
   const { modalMode } = useSelector((state) => state);
   const [toggleConfirmationModal, setToggleConfirmationModal] = useState(false);
 
@@ -63,7 +63,11 @@ const ModalForm = ({ open, onClose, title, children, onSubmit }) => {
               Cerrar
             </Button>
           ) : (
-            <Button onClick={openConfirmationModal} style={"primary"}>
+            <Button
+              isDisable={isDisable}
+              onClick={openConfirmationModal}
+              style={"primary"}
+            >
               {modalMode === "create" ? "Crear nuevo" : "Guardar cambios"}
             </Button>
           )}
@@ -78,7 +82,7 @@ const ModalForm = ({ open, onClose, title, children, onSubmit }) => {
             : "guardar los cambios"
         }?`}
         textButton={"Aceptar"}
-        confirmSubmit={() => {}}
+        confirmSubmit={onSubmit}
         cancelSumbit={closeConfirmationModal}
       />
     </>

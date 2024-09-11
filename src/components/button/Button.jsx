@@ -1,12 +1,18 @@
 import React from "react";
 import { Primary, Secondary } from "./ButtonStyles";
 
-const Button = ({ style, children, onClick }) => {
+const Button = ({ style, children, onClick, isDisable }) => {
   return (
     <>
-      {style === "primary" && <Primary onClick={onClick}>{children}</Primary>}
+      {style === "primary" && (
+        <Primary disabled={isDisable} onClick={!isDisable ? onClick : null}>
+          {children}
+        </Primary>
+      )}
       {style === "secondary" && (
-        <Secondary onClick={onClick}>{children}</Secondary>
+        <Secondary disabled={isDisable} onClick={!isDisable ? onClick : null}>
+          {children}
+        </Secondary>
       )}
     </>
   );
